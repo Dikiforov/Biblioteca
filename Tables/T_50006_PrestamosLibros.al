@@ -76,6 +76,10 @@ table 50006 "Prestamos Libros"
         {
             DataClassification = ToBeClassified;
         }
+        field(100; DateFilter; Date)
+        {
+            FieldClass = FlowFilter;
+        }
     }
 
     keys

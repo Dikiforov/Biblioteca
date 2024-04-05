@@ -58,12 +58,15 @@ page 50022 InformacionBiblioteca
             cuegroup("Información Prestamos")
             {
                 Caption = 'Información Prestamos';
+
                 field(TotalPrestamos; Rec.TotalPrestamos)
                 {
                     Caption = 'Total Prestamos';
                     DrillDownPageId = "Lista Prestamos";
                     ApplicationArea = All;
                 }
+
+
                 // Opción de filtro con activos
                 field(PrestamosActivos; Rec.PrestamosActivos)
                 {
@@ -77,6 +80,13 @@ page 50022 InformacionBiblioteca
                     Caption = 'Prestamos Vencidos';
                     DrillDownPageId = "Lista Prestamos";
                     ApplicationArea = All;
+                    StyleExpr = prestamosVencidosColor;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        prestamosVencidosColor := actualizarPrestamos.actualizarColorColas(Rec);
+                    end;
                 }
             }
         }
@@ -89,6 +99,10 @@ page 50022 InformacionBiblioteca
             rec.Init();
             rec.Insert();
         end;
-
+        actualizarPrestamos.actualizarPrestamos(recPrestamos, Rec);
     end;
+
+    var
+        actualizarPrestamos: Codeunit "Comprobar Prestamos";
+        prestamosVencidosColor: Text[50];
 }

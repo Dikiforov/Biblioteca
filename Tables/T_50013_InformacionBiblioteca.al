@@ -39,11 +39,11 @@ table 50013 InformacionBiblioteca
         }
         field(8; PrestamosActivos; Integer)
         {
-
+            DataClassification = ToBeClassified;
         }
         field(9; PrestamosVencidos; Integer)
         {
-
+            DataClassification = ToBeClassified;
         }
     }
 
