@@ -38,6 +38,10 @@ page 50004 "Ficha Autores"
                 {
                     ApplicationArea = All;
                 }
+                field("% Descuento"; Rec."% Descuento")
+                {
+                    ApplicationArea = All;
+                }
                 field("Filtro Año"; Rec."Filtro Año")
                 {
                     ApplicationArea = All;

@@ -7,7 +7,26 @@ tableextension 50005 ExtSalesHeader extends "Sales Header"
         {
 
         }
+        field(50001; EsAutor; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        modify("Bill-to Customer No.")
+        {
+            trigger OnAfterValidate()
+            begin
+                comprobarAutor();
+            end;
+        }
+        modify("Bill-to Name")
+        {
+            trigger OnAfterValidate()
+            begin
+                comprobarAutor();
+            end;
+        }
     }
+
     var
         recCustomer: Record Customer;
         recSetup: Record "Sales & Receivables Setup";
@@ -22,6 +41,20 @@ tableextension 50005 ExtSalesHeader extends "Sales Header"
             recSetup.TestField("Código SII");
             NoSeriesMgt.InitSeries(recSetup."Código SII", xRec.CodSii, 0D, CodSii, "No. Series");
             recSalesOrder.CodSii := rec.CodSii;
+        end;
+    end;
+
+    local procedure comprobarAutor()
+    var
+        recCustomer: Record Customer;
+        recAutores: Record Autores;
+    begin
+        Rec.EsAutor := false;
+        recCustomer.SetRange("No.", Rec."Sell-to Customer No.");
+        if recCustomer.FindFirst() then begin
+            if (recCustomer.AutorAsociado <> '') then begin
+                Rec.EsAutor := true;
+            end;
         end;
     end;
 }

@@ -16,6 +16,11 @@ tableextension 50004 ExtCustomer extends Customer
         {
             DataClassification = ToBeClassified;
         }
+        field(50003; AutorAsociado; Code[10])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Autores.Codigo;
+        }
     }
     var
         SalesSetup: Record "Sales & Receivables Setup";

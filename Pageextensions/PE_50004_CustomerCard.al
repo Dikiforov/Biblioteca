@@ -9,6 +9,11 @@ pageextension 50004 ExtCustomerCard extends "Customer Card"
                 Caption = 'Código Sii Activado';
                 ApplicationArea = All;
             }
+            field(Autores; Rec.AutorAsociado)
+            {
+                Caption = 'Autor asociado';
+                ApplicationArea = All;
+            }
         }
     }
 }

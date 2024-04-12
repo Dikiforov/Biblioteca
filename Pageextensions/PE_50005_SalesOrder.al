@@ -17,6 +17,12 @@ pageextension 50006 ExtSalesOrder extends "Sales Order"
                 ApplicationArea = All;
                 Visible = false;
             }
+            field(EsAutor; Rec.EsAutor)
+            {
+                ApplicationArea = All;
+                Visible = true;
+                Editable = false;
+            }
         }
     }
 }

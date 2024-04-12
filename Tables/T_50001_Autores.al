@@ -44,6 +44,12 @@ table 50001 Autores
             Editable = False;
             TableRelation = "No. Series";
         }
+        field(10; "% Descuento"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            MinValue = 0;
+            MaxValue = 100;
+        }
     }
     keys
     {
