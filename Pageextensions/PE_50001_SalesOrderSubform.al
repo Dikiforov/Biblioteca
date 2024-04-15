@@ -8,18 +8,6 @@ pageextension 50001 LineaVenta extends "Sales Order Subform"
             {
                 Caption = 'Cód. Libro';
                 ApplicationArea = All;
-                trigger OnValidate()
-                var
-                    recLibros: Record Libros;
-                begin
-                    recLibros.SetFilter(Codigo, rec.CodLibro);
-                    if (recLibros.FindFirst()) then begin
-                        rec.Description := recLibros.Descripcion;
-                        rec."Unit Price" := recLibros."Importe PVP";
-                        rec.CodAutor := recLibros.Autor;
-                        rec.CodEditorial := recLibros.Editorial;
-                    end;
-                end;
             }
 
             field(CodAutor; Rec.CodAutor)

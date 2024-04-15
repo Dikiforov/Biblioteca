@@ -4,27 +4,50 @@ codeunit 50009 ofertaAutor
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterValidateEvent', 'CodLibro', true, true)]
     local procedure OnAfterValidateEventCodLibro(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; CurrFieldNo: Integer)
     var
-        SalesLineRecord: Record "Sales Line";
-        CustomerRecord: Record Customer;
-        AuthorRecord: Record Autores;
     begin
-        repeat
-            // Comprobamos si es de tipo item las lineas
-            if (SalesLineRecord.Type = SalesLineRecord.Type::Item) then begin
-                if (SalesLineRecord.CodLibro <> '') then begin
-                    CustomerRecord.SetRange("No.", Rec."Sell-to Customer No.");
-                    if (CustomerRecord.FindFirst()) then begin
-                        AuthorRecord.SetRange(Codigo, CustomerRecord.AutorAsociado);
-                        if (AuthorRecord.FindFirst()) then begin
-                            SalesLineRecord."Line Discount %" := AuthorRecord."% Descuento";
-                            Message('El cliente ' + CustomerRecord.Name + ' es autor y compra el libro ' + SalesLineRecord.CodLibro);
-                            Message('Descuento en linea: ' + Format(SalesLineRecord."Line Discount %") + ' Descuento autor: ' + Format(AuthorRecord."% Descuento"));
-                            SalesLineRecord.Modify();
+
+        ModificarValoresPrecios(Rec);
+    end;
+
+    local procedure ModificarValoresPrecios(var prmSalesLine: Record "Sales Line")
+    var
+        recCustomer: Record Customer;
+        recAutores: Record Autores;
+        recLibros: Record Libros;
+    begin
+        // Aplicamos el precio de venta unitario
+        recLibros.SetFilter(Codigo, prmSalesLine.CodLibro);
+        if (recLibros.FindFirst()) then begin
+            prmSalesLine."Unit Price" := recLibros."Importe PVP";
+        end;
+        // Aplicamos el descuento si el cliente es un autor
+        recCustomer.SetFilter("No.", prmSalesLine."Sell-to Customer No.");
+        if (recCustomer.FindFirst()) then begin
+            if (recCustomer.AutorAsociado <> '') then begin
+                recAutores.SetFilter(Codigo, recCustomer.AutorAsociado);
+                if (recAutores.FindFirst()) then begin
+                    prmSalesLine."Line Discount %" := recAutores."% Descuento";
+                end;
+            end;
+        end;
+    end;
+    /*
+    trigger OnValidate()
+                var
+                    recLibros: Record Libros;
+                    recAutor: Record Autores;
+                begin
+                    recLibros.SetFilter(Codigo, rec.CodLibro);
+                    if (recLibros.FindFirst()) then begin
+                        rec.Description := recLibros.Descripcion;
+                        rec."Unit Price" := recLibros."Importe PVP";
+                        rec.CodAutor := recLibros.Autor;
+                        rec.CodEditorial := recLibros.Editorial;
+                        recAutor.SetFilter(Codigo, rec.CodAutor);
+                        if (recAutor.FindFirst()) then begin
+                            rec."Line Discount %" := recAutor."% Descuento";
                         end;
                     end;
                 end;
-            end;
-        until (SalesLineRecord.Next() = 0);
-        SalesLineRecord.Modify();
-    end;
+    */
 }
