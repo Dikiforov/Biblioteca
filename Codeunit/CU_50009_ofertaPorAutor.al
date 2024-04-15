@@ -5,8 +5,7 @@ codeunit 50009 ofertaAutor
     local procedure OnAfterValidateEventCodLibro(var Rec: Record "Sales Line"; var xRec: Record "Sales Line"; CurrFieldNo: Integer)
     var
     begin
-
-        ModificarValoresPrecios(Rec);
+        //ModificarValoresPrecios(Rec);
     end;
 
     local procedure ModificarValoresPrecios(var prmSalesLine: Record "Sales Line")
@@ -14,6 +13,7 @@ codeunit 50009 ofertaAutor
         recCustomer: Record Customer;
         recAutores: Record Autores;
         recLibros: Record Libros;
+        valorTotal: decimal;
     begin
         // Aplicamos el precio de venta unitario
         recLibros.SetFilter(Codigo, prmSalesLine.CodLibro);
@@ -27,6 +27,8 @@ codeunit 50009 ofertaAutor
                 recAutores.SetFilter(Codigo, recCustomer.AutorAsociado);
                 if (recAutores.FindFirst()) then begin
                     prmSalesLine."Line Discount %" := recAutores."% Descuento";
+                    valorTotal := ((100 - prmSalesLine."Line Discount %") / 100) * prmSalesLine."Unit Price";
+                    prmSalesLine.Amount := valorTotal;
                 end;
             end;
         end;
