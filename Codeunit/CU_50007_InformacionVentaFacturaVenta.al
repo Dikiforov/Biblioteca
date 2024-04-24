@@ -19,11 +19,11 @@ codeunit 50007 "Inf. Cliente Venta Fact. Venta"
             if SalesLine.FindFirst() then begin
                 repeat
                     if SalesLine.Description.Contains('Shipment') then begin
-                        NextLineNo := SalesLine."Line No." - 500;
+                        NextLineNo := SalesLine."Line No." - 1;
                         InsertInfoSalesLine(true, SalesHeader, SalesLine, NextLineNo);
-                        NextLineNo := NextLineNo - 500;
+                        NextLineNo := NextLineNo - 1;
                         InsertInfoSalesLine(false, SalesHeader, SalesLine, NextLineNo);
-                        NextLineNo := NextLineNo - 500;
+                        NextLineNo := NextLineNo - 1;
                     end;
                 until SalesLine.Next() = 0;
             end;

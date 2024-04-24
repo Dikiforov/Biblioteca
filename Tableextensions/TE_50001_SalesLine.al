@@ -10,6 +10,7 @@ tableextension 50001 ExtSalesLine extends "Sales Line"
                 recCustomer: Record Customer;
                 recAutores: Record Autores;
                 recLibros: Record Libros;
+                DocumentTotals: Codeunit "Document Totals";
             begin
                 recLibros.SetFilter(Codigo, CodLibro);
                 if (recLibros.FindFirst()) then begin
@@ -20,9 +21,10 @@ tableextension 50001 ExtSalesLine extends "Sales Line"
                     if (recCustomer.FindFirst()) then begin
                         recAutores.SetFilter(Codigo, recCustomer.AutorAsociado);
                         if (recAutores.FindFirst()) then begin
-                            "Unit Price" := recLibros."Importe PVP";
-                            "Line Discount %" := recAutores."% Descuento";
-                            "Line Amount" := ((100 - "Line Discount %") / 100) * "Unit Price";
+                            Rec."Unit Price" := recLibros."Importe PVP";
+                            Rec."Line Discount %" := recAutores."% Descuento";
+                            Rec."Line Discount Calculation" := "Line Discount Calculation"::"%";
+                            Rec.UpdateAmounts();
                         end;
                     end;
                 end;
