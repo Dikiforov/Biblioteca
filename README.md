@@ -1,30 +1,68 @@
-# Biblioteca
 
-En este proyecto se ha implemenado una gestión sencilla de una 'Biblioteca', donde esta dirigida por un gerente.
+¡Absolutamente! Aquí tienes una versión más detallada del README.md, expandiendo las descripciones y añadiendo algunos detalles técnicos:
 
-//Insertar imagen del rol center principal
+# Biblioteca - Rol Center Personalizado y Gestión Mejorada para Microsoft Dynamics 365 Business Central
 
-Como podemos apreciar en la imagen, se ha empezado por la creación de un centro que permite visualizar todas las funcionalidades disponibles.
+Este proyecto de extensión para Microsoft Dynamics 365 Business Central transforma la gestión de bibliotecas al introducir un rol center a medida para el gerente, optimizar la gestión de datos y automatizar procesos clave.
 
-En primera instancia, tenemos un navegar que nos permite realizar diferentes acciones más cotidianas, como puede ser la de listar cada uno de los contenidos de cada tabla. Por otro lado, en la parte superior, nos encontramos con un navegador un poco más genérico.
+## Características Destacadas
 
-En otra instancia, nos encontramos con la cabecera, que se encarga de mostrar información relacionado con el día actual, el libro más caro del sistema y, por último, el libro con la mayor cantidad de páginas que se ha detectado en el sistema. Eso se ha realizado mediante una función adicional llamada 'ObtenerLibroMasCaro()' y 'ObtenerLibroMasExtenso', que se encargan de realizar una recorrido por los registros de la tabla para buscar el resultado deseado.
+### 1. Rol Center del Gerente de Biblioteca: Un Panel de Control Intuitivo
 
+El nuevo rol center ofrece al gerente una visión holística y en tiempo real del estado de la biblioteca. Sus principales componentes son:
 
-Por otro lado, tenemos una serie de información más abajo que nos permite ver diferente información, como puede ser el precio total de los libros en el sistema y el número de páginas global. También, se puede apreciar como un poco más abajo tenemos una serie de contenedores que proporcionan datos de una manera más genérica, como puede ser información sobre la cantidad de libros, autores o el total de prestamos vencidos.
+* **KPI's (Indicadores Clave de Rendimiento):** Métricas personalizables que muestran datos críticos como el número total de libros, usuarios activos, préstamos pendientes, tasas de devolución y más.
+* **Gráficos Interactivos:** Visualizaciones dinámicas (gráficos de barras, circulares, etc.) que resumen tendencias y patrones en los datos de la biblioteca.
+* **Listas Detalladas:** Acceso rápido a listas de libros más prestados, usuarios con retrasos, próximas devoluciones y otros datos relevantes.
+* **Actividades y Notificaciones:** Un área dedicada para mostrar tareas pendientes, recordatorios y alertas importantes.
+* **Contenedores Personalizables:** Flexibilidad para añadir, eliminar o reorganizar los elementos del rol center según las necesidades de cada biblioteca.
 
+/![Role Center Inicial](/Imagenes/RolCenter_Principal.png)
 
+### 2. Gestión de Datos Optimizada: Listas y Tarjetas Intuitivas
 
-// Imagen listas
+La gestión de datos se simplifica gracias a:
 
-En esta parte podemos apreciar como nos encontramos con 3 listas que muestran las información de las tablas principales del sistemas (Libros, Autores y Editoriales).
+* **Listas Detalladas:** Cada tabla (libros, socios, préstamos, etc.) cuenta con una lista que muestra todos los registros de forma clara y organizada.
+* **Tarjetas Informativas:** Al seleccionar un registro de la lista, se abre una tarjeta que proporciona información detallada y permite editar los campos.
+* **Búsqueda y Filtrado Avanzados:** Encuentra rápidamente registros específicos utilizando filtros por campos, palabras clave o rangos de fechas.
+* **Acciones Rápidas:** Realiza acciones comunes (editar, eliminar, imprimir) directamente desde las listas y tarjetas.
 
+/![Lista de libros](/Imagenes/ListaLibros.png)
 
-// Lista libros
+/![Carta de libros](/Imagenes/CardLibros.png)
 
-En este punto podemos apreciar un poco más de información respecto a los libros, como puede ser el código del producto, la edad que tienen, etc.
+### 3. Automatización de Números de Serie: Integración con Ventas y Cobros
 
-Si queremos profundizar un poco más, cuando seleccionamos un libros, podemos ver la información en un formato de carta no editable. Lo que permite visualizar la informción sin posibilidad de editar.
+La asignación de números de serie a los productos se automatiza mediante:
 
+* **Eventos de Business Central:** La extensión se suscribe a eventos de creación de documentos de ventas y cobros.
+* **Lógica de Asignación:** Al crear un nuevo documento, se genera automáticamente un número de serie único y se asigna al producto correspondiente.
+* **Configuración Flexible:** El formato y la secuencia de los números de serie se pueden personalizar según las necesidades de la biblioteca.
 
-Para el tema de ventas.
+/![Números de serie](/Imagenes/NosSerie.png)
+
+/![Configuración de ventas y cobros](/Imagenes/confVentasCobros.png)
+### 4. Validación de Fechas de Caducidad NIF: Cumplimiento Normativo
+
+La extensión garantiza la validez de los NIF (Número de Identificación Fiscal) mediante:
+
+* **Validación en Tiempo Real:** Al introducir o modificar un NIF, se verifica su formato y fecha de caducidad.
+* **Avisos y Alertas:** Si un NIF es inválido o está próximo a caducar, se muestra un mensaje de advertencia al usuario.
+* **Informes Personalizados:** Genera informes periódicos que listan los NIF caducados o próximos a caducar.
+
+/![Comprobador de NIF](/Imagenes/NIFCheck.png)
+
+## Tecnologías Utilizadas
+
+* **Microsoft Dynamics 365 Business Central:** Plataforma base para la gestión empresarial.
+* **AL (Lenguaje de Aplicaciones):** Lenguaje de programación utilizado para desarrollar la extensión.
+* **Visual Studio Code:** Entorno de desarrollo integrado para AL.
+* **Extensiones de Business Central:** Paquetes que amplían las funcionalidades estándar de Business Central.
+
+## Instalación y Configuración
+
+1. **Descargar la Extensión:** Obtén el archivo de extensión `.app` desde la sección de lanzamientos del repositorio.
+2. **Importar en Business Central:** Sigue las instrucciones de importación de extensiones en Business Central.
+3. **Publicar la Extensión:** Publica la extensión para que esté disponible en tu entorno de Business Central.
+4. **Configurar el Rol Center:** Personaliza el diseño y los elementos del rol center según tus preferencias.
